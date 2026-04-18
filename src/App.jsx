@@ -124,41 +124,37 @@ export default function App() {
           {posts.map((post) => (
             <div
               key={post.id}
-              className="bg-white/5 border border-white/10 rounded-2xl p-4 hover:bg-white/10 transition shadow-lg"
+              className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 shadow-2xl hover:scale-[1.02] hover:bg-white/10 transition duration-300"
             >
 
-              {/* MESSAGE */}
-              <p className="text-lg leading-relaxed">
+              {/* Glow effect */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-r from-white/5 via-transparent to-white/5 pointer-events-none"></div>
+
+              {/* Message */}
+              <p className="relative text-[17px] leading-relaxed text-white font-medium">
                 {post.message}
               </p>
 
-              {/* ACTION BAR */}
-              <div className="flex gap-6 mt-4 text-sm text-gray-400">
-
+              {/* Footer */}
+              <div className="relative flex items-center justify-between mt-5 pt-4 border-t border-white/10">
 
                 <button
                   onClick={() => handleLike(post)}
-                  className="hover:text-pink-400 transition disabled:opacity-50"
-                  disabled={getLikedPosts().includes(post.id)}
+                  className="px-4 py-2 rounded-full bg-white/5 hover:bg-pink-500/20 text-sm text-gray-300 hover:text-pink-300 transition"
                 >
                   ❤️ {post.likes || 0}
                 </button>
 
-                <button className="hover:text-blue-400 transition">
-                  💬 Reply
-                </button>
-
-                <button className="hover:text-green-400 transition">
-                  🔁 Share
-                </button>
+                <div className="text-right">
+                  <p className="text-xs text-gray-400">
+                    👤 {post.username || "Anonymous"}
+                  </p>
+                  <p className="text-[11px] text-gray-500">
+                    {new Date(post.created_at).toLocaleDateString()}
+                  </p>
+                </div>
 
               </div>
-
-              <div className="text-xs text-gray-500 mt-2">
-                👤 {post.username || "Anonymous"}
-              </div>
-
-
 
             </div>
           ))}
